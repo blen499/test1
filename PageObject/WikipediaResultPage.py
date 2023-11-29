@@ -91,7 +91,8 @@ class WikipediaResultPage(BasePage):
         return str(chars)
 
 
-
+    def assertNotExistPage(self):
+        return self.searchOnPageText("Соответствий запросу не найдено.")
 
 
 

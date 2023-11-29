@@ -35,10 +35,10 @@ def update(sql):
     return True
 
 
-def getRandomClient():
-    query = select("select distinct first_name, last_name from famousppl where in_wiki = TRUE")
+def getRandomClient(boolean):
+    query = select(f"select distinct first_name, last_name from famousppl where in_wiki = {boolean}")
 
-    rnd = random.randint(0,(len(query)-2))
+    rnd = random.randint(0,(len(query)-1 ))
 
     a = " ".join(map(str, query[rnd]))
 
@@ -53,7 +53,6 @@ def checkUpdateClient(str, newDate):
     if a == newDate:
         return
     else:
-        print(2)
         query = update(f"""
                         update famousppl
                             set updated_at = '{newDate}'

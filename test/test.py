@@ -25,7 +25,7 @@ def test_wiki_result_page(browser):
     wiki_action = res(browser)
     wiki_action.checkImgOnPage()
 
-def test_wiki_checkContent(browser):
+def test_wiki_check_content(browser):
     wiki_action = wiki(browser)
     wiki_action.go()
 
@@ -37,8 +37,8 @@ def test_wiki_checkContent(browser):
 
 
 
-def test_wiki_db(browser):
-    fi = pg.getRandomClient()
+def test_wiki_db_exist_client(browser):
+    fi = pg.getRandomClient(True)
 
     wiki_action = wiki(browser)
     wiki_action.go()
@@ -49,3 +49,16 @@ def test_wiki_db(browser):
     wiki_action = res(browser)
 
     wiki_action.checkLastUpdate(client=fi)
+
+def test_wiki_db_not_exist_client(browser):
+    fi = pg.getRandomClient(False)
+
+    wiki_action = wiki(browser)
+    wiki_action.go()
+
+    wiki_action.searchOnField(fi)
+    wiki_action.clickOnSearchBtn()
+
+    wiki_action = res(browser)
+
+    wiki_action.assertNotExistPage()
