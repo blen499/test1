@@ -48,14 +48,14 @@ class WikipediaResultPage(BasePage):
             assert titleContent == title
 
             titleLabelContent = self.findElement(by="class", text_attribute="toctogglelabel")
-            arr = ["cкрыть", "показать"]
+
             title = self.checkTitleCSSAfter()
 
-            assert self.checkTitleCSSAfter().__eq__(arr[0])
+            assert self.checkTitleCSSAfter().count("скрыть") == 1
             titleLabelContent.click()
-            # assert self.checkTitleCSSAfter() == "показать"
-            # titleLabelContent.click()
-            # assert self.checkTitleCSSAfter() == "скрыть"
+            assert self.checkTitleCSSAfter().count("показать") == 1
+            titleLabelContent.click()
+            assert self.checkTitleCSSAfter().count("скрыть") == 1
 
         except Exception:
             exit("\nНет на странице " + title)
@@ -86,9 +86,8 @@ class WikipediaResultPage(BasePage):
         db.checkUpdateClient(client,date)
 
 
-    def checkTitleCSSAfter(self ,text):
+    def checkTitleCSSAfter(self):
         chars = self.JS("return window.getComputedStyle(document.querySelector('.toctogglelabel'),':after').getPropertyValue('content')")
-        print(type(chars))
         return str(chars)
 
 
