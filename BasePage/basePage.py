@@ -65,7 +65,7 @@ class BasePage:
         except Exception:
             exit("\nНа странице не найден элемент - " + text)
         finally:
-            allure.attach(self.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            self.takescreenshot()
     @allure.step("Проверка фото на странице")
     def assertImgOnPage(self, src=None, alt=None):
         try:
@@ -85,5 +85,9 @@ class BasePage:
             exit(f"Не найдено на странице фото с именем - {text}")
         # finally:
             # allure.attach(self.driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+    @allure.step("Screenshots")
+    def takescreenshot(self):
+        return allure.attach(self.driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
 
-
+    def JS(self, script):
+        return self.driver.execute_script(script)

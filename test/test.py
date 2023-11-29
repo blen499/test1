@@ -47,4 +47,5 @@ def test_wiki_db(browser):
     wiki_action.clickOnSearchBtn()
 
     wiki_action = res(browser)
+
     wiki_action.checkLastUpdate(client=fi)

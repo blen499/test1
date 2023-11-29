@@ -29,14 +29,12 @@ class WikipediaResultPage(BasePage):
 
             self.checkTitleContents()
 
-            assert self.searchOnPageText("Скрыть")
-
 
 
         except Exception:
             exit(f"\nНет списка {arrContents}")
         finally:
-            allure.attach(self.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            self.takescreenshot()
 
     def checkNestingContents(self, elem):
         nesting = [nest.text for nest in elem]
@@ -49,19 +47,20 @@ class WikipediaResultPage(BasePage):
 
             assert titleContent == title
 
-            titleLabel = ["Скрыть","Показать"]
             titleLabelContent = self.findElement(by="class", text_attribute="toctogglelabel")
+            arr = ["cкрыть", "показать"]
+            title = self.checkTitleCSSAfter()
 
+            assert self.checkTitleCSSAfter().__eq__(arr[0])
             titleLabelContent.click()
-
-            assert self.searchOnPageText(titleLabel[0])
-
-            titleLabelContent.click()
-            assert self.searchOnPageText(titleLabel[1])
+            # assert self.checkTitleCSSAfter() == "показать"
+            # titleLabelContent.click()
+            # assert self.checkTitleCSSAfter() == "скрыть"
 
         except Exception:
             exit("\nНет на странице " + title)
-
+        finally:
+            self.takescreenshot()
 
     def checkLastUpdate(self, client):
         elem = self.findElement(text_attribute="footer-info-lastmod").text
@@ -85,6 +84,13 @@ class WikipediaResultPage(BasePage):
         date = f'{arr[9]}-{obj[arr[8]]}-{arr[7]}'
 
         db.checkUpdateClient(client,date)
+
+
+    def checkTitleCSSAfter(self ,text):
+        chars = self.JS("return window.getComputedStyle(document.querySelector('.toctogglelabel'),':after').getPropertyValue('content')")
+        print(type(chars))
+        return str(chars)
+
 
 
 

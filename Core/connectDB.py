@@ -1,4 +1,5 @@
 import datetime
+from time import time
 
 import psycopg2
 import random
@@ -47,14 +48,15 @@ def getRandomClient():
 def checkUpdateClient(str, newDate):
     arr = str.split()
     query = select(f"""select distinct updated_at from famousppl where first_name ='{arr[0]}'and last_name = '{arr[1]}'""")
-    print(query)
+    a = query[0][0].strftime("%Y-%m-%d")
 
-    if datetime.datetime(query) == datetime.datetime(newDate):
+    if a == newDate:
         return
     else:
+        print(2)
         query = update(f"""
                         update famousppl
-                            set updated_at = '{newDate}
+                            set updated_at = '{newDate}'
                                 where first_name = '{arr[0]}'
                                 and last_name = '{arr[1]}';
                         commit;
