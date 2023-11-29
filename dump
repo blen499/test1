@@ -1,0 +1,106 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.1
+-- Dumped by pg_dump version 16.1
+
+-- Started on 2023-11-28 17:47:05 PST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 16400)
+-- Name: famousppl; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.famousppl (
+    id bigint NOT NULL,
+    first_name character varying(50),
+    last_name character varying(50),
+    updated_at date,
+    in_wiki boolean DEFAULT true
+);
+
+
+ALTER TABLE public.famousppl OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16399)
+-- Name: famousppl_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.famousppl_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.famousppl_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3595 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: famousppl_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.famousppl_id_seq OWNED BY public.famousppl.id;
+
+
+--
+-- TOC entry 3443 (class 2604 OID 16403)
+-- Name: famousppl id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.famousppl ALTER COLUMN id SET DEFAULT nextval('public.famousppl_id_seq'::regclass);
+
+
+--
+-- TOC entry 3589 (class 0 OID 16400)
+-- Dependencies: 216
+-- Data for Name: famousppl; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.famousppl (id, first_name, last_name, updated_at, in_wiki) FROM stdin;
+1	Иван	Грозный	2023-11-23	t
+1	Иван	Грозный	2023-11-23	t
+2	Дэн	Стивенс	2023-11-14	t
+3	Виктория	Фёдоровна	2023-08-20	t
+4	Туда	Сюдавоттакбывает	2100-10-10	f
+1	Иван	Грозный	2023-11-23	t
+2	Дэн	Стивенс	2023-11-14	t
+3	Виктория	Фёдоровна	2023-08-20	t
+4	Туда	Сюдавоттакбывает	2100-10-10	f
+\.
+
+
+--
+-- TOC entry 3596 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: famousppl_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.famousppl_id_seq', 1, false);
+
+
+-- Completed on 2023-11-28 17:47:05 PST
+
+--
+-- PostgreSQL database dump complete
+--
+
